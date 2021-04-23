@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from datetime import datetime
 from sqlalchemy import event
+import json
 from sqlalchemy.engine import Engine
 from flask_sqlalchemy import SQLAlchemy
 from sqlite3 import Connection as SQLite3Connection
@@ -39,3 +40,51 @@ class BlogPost(db.Model):
     
 
 # routes
+
+@app.route('/user', methods=["POST"])
+def create_user():
+    data = request.get_json(force=True)
+    new_user = User(
+        name=data['name'],
+        email=data["email"],
+        address=data["address"],
+        phone=data["phone"],
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": "user_created"}), 200
+
+@app.route('/user/desc_id', methods=["GET"])
+def get_all_users_desc():
+    pass
+
+@app.route('/user/asc_id', methods=["GET"])
+def get_all_users_asc():
+    pass
+
+@app.route('/user/<user_id>', methods=["GET"])
+def get_one_user(user_id):
+    pass
+
+@app.route('/user/<user_id>', methods=["DELETE"])
+def delete_user(user_id):
+    pass
+
+@app.route('/blog_post/<user_id>', methods=["POST"])
+def create_blog_post(user_id):
+    pass
+
+@app.route('/user/<user_id>', methods=["GET"])
+def get_all_blog_post(user_id):
+    pass
+
+@app.route('/blog_post/<blog_post_id>', methods=["GET"])
+def get_one_blog_post(user_id):
+    pass
+
+@app.route('/blog_post/<blog_post_id>', methods=["DELETE"])
+def delete_blog_post(user_id):
+    pass
+
+if __name__ == "__main__":
+    app.run(debug=True)
