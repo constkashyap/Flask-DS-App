@@ -32,6 +32,7 @@ class LinkedList:
     def insert_at_end(self, data):
         if self.head is None:
             self.insert_beginning(data)
+            return
 
         # if self.last_node is None:
         #     node = self.head
@@ -41,28 +42,17 @@ class LinkedList:
         #     node.next_node = Node(data, None)
         #     self.last_node = node.next_node
         # else:
-        #     self.last_node.next_node = Node(data, None)
-        #     self.last_node = self.last_node.next_node
+            self.last_node.next_node = Node(data, None)
+            self.last_node = self.last_node.next_node
 
-ll = LinkedList()
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-ll.insert_beginning("data")
-
-ll.insert_at_end("end")
-ll.insert_at_end("end2")
-
+    def to_list(self):
+        l = []
+        if self.head is None:
+            return l
+        
+        node = self.head
+        while node:
+            l.append(node.data)
+            node = node.next_node
+        return l
 

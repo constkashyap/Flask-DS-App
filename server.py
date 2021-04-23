@@ -5,6 +5,7 @@ import json
 from sqlalchemy.engine import Engine
 from flask_sqlalchemy import SQLAlchemy
 from sqlite3 import Connection as SQLite3Connection
+import linked_list
 
 app = Flask(__name__)
 
@@ -56,8 +57,21 @@ def create_user():
 
 @app.route('/user/desc_id', methods=["GET"])
 def get_all_users_desc():
-    pass
+    users = User.query.all()
+    all_users_ll = linked_list.LinkedList()
 
+    for user in users:
+        all_users_ll.insert_beginning(
+        {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email,
+            "address": user.address,
+            "phone": user.phone,
+        }
+    )
+    return jsonify(all_users_ll.to_list()), 200
+    
 @app.route('/user/asc_id', methods=["GET"])
 def get_all_users_asc():
     pass
